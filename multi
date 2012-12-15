@@ -36,60 +36,61 @@ addFiles().then(function(files){
         socket.on('masterEvent', function (data) {
             if (data.audioEvent === 'requestClientList') {
                 var htmlString = buildClientsList();
-                socket.emit('masterEvent', { 
+                socket.emit('masterEvent', {
                     'audioEvent': 'updateSources',
                     'sources': htmlString
-                }); 
+                });
             }
             else {
+
                 socket.broadcast.emit('slaveEvent', data);
             }
         });
 
-        socket.on('slaveEvent', function (data){
-            console.log(data);
-            if (data.audioEvent === 'loaded') {
-                audioFiles[data.source] = audioFiles[data.source] + 1;
-                var htmlString = buildClientsList();
-                socket.broadcast.emit('masterEvent', { 
-                    'audioEvent': 'updateSources',
-                    'sources': htmlString
-                }); 
-            }
-            else if (data.audioEvent === 'removeSource') {
-                audioFiles[data.source] = audioFiles[data.source] - 1;
-                var htmlString = buildClientsList();
-                socket.broadcast.emit('masterEvent', { 
-                    'audioEvent': 'updateSources',
-                    'sources': htmlString
-                }); 
-            }
-            else if (data.audioEvent == 'requestSource') {
-                var nextFile = getNextAudioFile();
-                console.log(nextFile);
-                if (nextFile){
-                    
-                    socket.emit('slaveEvent', { 
-                        'audioEvent': 'load',
-                        'source': nextFile
-                    });  
-                    
-                }
-                else {
-                    nextFile = getRandomAudioFile();
-                    socket.emit('slaveEvent', { 
-                        'audioEvent': 'load',
-                        'source': nextFile
-                    }); 
+        // socket.on('slaveEvent', function (data){
+        //     console.log(data);
+        //     if (data.audioEvent === 'loaded') {
+        //         audioFiles[data.source] = audioFiles[data.source] + 1;
+        //         var htmlString = buildClientsList();
+        //         socket.broadcast.emit('masterEvent', {
+        //             'audioEvent': 'updateSources',
+        //             'sources': htmlString
+        //         });
+        //     }
+        //     else if (data.audioEvent === 'removeSource') {
+        //         audioFiles[data.source] = audioFiles[data.source] - 1;
+        //         var htmlString = buildClientsList();
+        //         socket.broadcast.emit('masterEvent', {
+        //             'audioEvent': 'updateSources',
+        //             'sources': htmlString
+        //         });
+        //     }
+        //     else if (data.audioEvent == 'requestSource') {
+        //         var nextFile = getNextAudioFile();
+        //         console.log(nextFile);
+        //         if (nextFile){
 
-                    // console.log('we all full up');
-                    // socket.emit('slaveEvent', { 
-                    //     'audioEvent': 'error',
-                    //     'message': 'full'
-                    // });
-                }
-            }
-        });
+        //             socket.emit('slaveEvent', {
+        //                 'audioEvent': 'load',
+        //                 'source': nextFile
+        //             });
+
+        //         }
+        //         else {
+        //             nextFile = getRandomAudioFile();
+        //             socket.emit('slaveEvent', {
+        //                 'audioEvent': 'load',
+        //                 'source': nextFile
+        //             });
+
+        //             // console.log('we all full up');
+        //             // socket.emit('slaveEvent', {
+        //             //     'audioEvent': 'error',
+        //             //     'message': 'full'
+        //             // });
+        //         }
+        //     }
+        // });
     });
 });
 
@@ -107,32 +108,32 @@ function addFiles(){
     return d.promise;
 }
 
-function getNextAudioFile(){
-    for (var file in audioFiles){
-        if (audioFiles[file] === 0) {
-            return file;
-        }
-    }
-    return false;
-}
+// function getNextAudioFile(){
+//     for (var file in audioFiles){
+//         if (audioFiles[file] === 0) {
+//             return file;
+//         }
+//     }
+//     return false;
+// }
 
-function getRandomAudioFile() {
-    var result,
-        count = 0,
-        file;
-    for (file in audioFiles)
-        if (Math.random() < 1/++count)
-           result = file;
-    return result;
-}
+// function getRandomAudioFile() {
+//     var result,
+//         count = 0,
+//         file;
+//     for (file in audioFiles)
+//         if (Math.random() < 1/++count)
+//            result = file;
+//     return result;
+// }
 
-function buildClientsList(){
-    var htmlString = '',
-        file;
-    for (file in audioFiles) {
-        if (audioFiles[file]) {
-            htmlString = htmlString + '<br/>' + file + ' (' + audioFiles[file] + ')';
-        }
-    }
-    return htmlString;
-}
+// function buildClientsList(){
+//     var htmlString = '',
+//         file;
+//     for (file in audioFiles) {
+//         if (audioFiles[file]) {
+//             htmlString = htmlString + '<br/>' + file + ' (' + audioFiles[file] + ')';
+//         }
+//     }
+//     return htmlString;
+// }

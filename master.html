@@ -17,32 +17,125 @@
           // }
 
           $(document).ready(function(){
-              $("#play").click(function(){
+              // $("#play").click(function(){
+              //   socket.emit('masterEvent', {
+              //     'audioEvent': 'play'
+              //   });
+              // });
+
+              $("#f_flute_low_short").click(function(){
+                $("#note_display").text('F').css('font-size', '100px');
                 socket.emit('masterEvent', {
-                  'audioEvent': 'play'
+                  'audioEvent': 'play',
+                  'source': 'f_flute_low_short.mp3'
                 });
               });
-              $("#stop").click(function(){
+              $("#fsharp_flute_low_short").click(function(){
+                $("#note_display").text('F#').css('font-size', '100px');
                 socket.emit('masterEvent', {
-                  'audioEvent': 'stop'
+                  'audioEvent': 'play',
+                  'source': 'fsharp_flute_low_short.mp3'
                 });
               });
-              $("#reload").click(function(){
-                socket.emit('masterEvent', { 
-                  'audioEvent': 'reload' 
+              $("#g_flute_low_short").click(function(){
+                $("#note_display").text('G').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'g_flute_low_short.mp3'
                 });
               });
-              socket.emit('masterEvent', {
-                'audioEvent': 'requestClientList'
+              $("#gsharp_flute_low_short").click(function(){
+                $("#note_display").text('G#').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'gsharp_flute_low_short.mp3'
+                });
               });
+              $("#a_flute_low_short").click(function(){
+                $("#note_display").text('A').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'a_flute_low_short.mp3'
+                });
+              });
+              $("#asharp_flute_low_short").click(function(){
+                $("#note_display").text('A#').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'asharp_flute_low_short.mp3'
+                });
+              });
+              $("#b_flute_low_short").click(function(){
+                $("#note_display").text('B').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'b_flute_low_short.mp3'
+                });
+              });
+              $("#c_flute_low_short").click(function(){
+                $("#note_display").text('C').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'c_flute_low_short.mp3'
+                });
+              });
+              $("#csharp_flute_low_short").click(function(){
+                $("#note_display").text('C#').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'csharp_flute_low_short.mp3'
+                });
+              });
+              $("#d_flute_low_short").click(function(){
+                $("#note_display").text('D').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'd_flute_low_short.mp3'
+                });
+              });
+              $("#dsharp_flute_low_short").click(function(){
+                $("#note_display").text('D#').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'dsharp_flute_low_short.mp3'
+                });
+              });
+
+              $("#e_flute_low_short").click(function(){
+                $("#note_display").text('E').css('font-size', '100px');
+                socket.emit('masterEvent', {
+                  'audioEvent': 'play',
+                  'source': 'e_flute_low_short.mp3'
+                });
+              });
+
+
+
+
+
+
+
+              // $("#stop").click(function(){
+              //   socket.emit('masterEvent', {
+              //     'audioEvent': 'stop'
+              //   });
+              // });
+              // $("#reload").click(function(){
+              //   socket.emit('masterEvent', {
+              //     'audioEvent': 'reload'
+              //   });
+              // });
+              // socket.emit('masterEvent', {
+              //   'audioEvent': 'requestClientList'
+              // });
             });
 
-          socket.on('masterEvent', function(data){
-            console.log(data);
-            if (data.audioEvent === 'updateSources') {
-              $("#clients").html(data.sources);
-            }
-          });
+          // socket.on('masterEvent', function(data){
+          //   console.log(data);
+          //   if (data.audioEvent === 'updateSources') {
+          //     $("#clients").html(data.sources);
+          //   }
+          // });
 
           // socket.on('clientList', function(data){
           //   $("#clients").text(data.list);
@@ -51,11 +144,29 @@
         </script>
     </head>
     <body>
-        <input type="button" id="play" value="play"/>
-        <input type="button" id="stop" value="stop"/>
-        <input type="button" id="reload" value="reload"/><br>
-        currently connected:
+        <!-- <input type="button" id="play" value="play"/> -->
+        <!-- <input type="button" id="stop" value="stop"/> -->
+        <!-- <input type="button" id="reload" value="reload"/> -->
+        <input type="button" id="f_flute_low_short" value="f_flute_low_short"/>
+        <input type="button" id="fsharp_flute_low_short" value="fsharp_flute_low_short"/>
+        <input type="button" id="g_flute_low_short" value="g_flute_low_short"/>
+        <input type="button" id="gsharp_flute_low_short" value="gsharp_flute_low_short"/>
+        <input type="button" id="a_flute_low_short" value="a_flute_low_short"/>
+        <input type="button" id="asharp_flute_low_short" value="asharp_flute_low_short"/>
+        <input type="button" id="b_flute_low_short" value="b_flute_low_short"/>
+        <input type="button" id="c_flute_low_short" value="c_flute_low_short"/>
+        <input type="button" id="csharp_flute_low_short" value="csharp_flute_low_short"/>
+        <input type="button" id="d_flute_low_short" value="d_flute_low_short"/>
+        <input type="button" id="dsharp_flute_low_short" value="dsharp_flute_low_short"/>
+        <input type="button" id="e_flute_low_short" value="e_flute_low_short"/>
+
+        <br>
+        <!-- currently connected: -->
         <div id="clients">
+
+        </div>
+
+        <div id="note_display">
 
         </div>
     </body>

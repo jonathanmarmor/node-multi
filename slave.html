@@ -14,9 +14,12 @@
 		function loadAudio(url) {
 		  var request = new XMLHttpRequest();
 		  request.open('GET', '/static/audio/' + url, true);
+
 		  request.responseType = 'arraybuffer';
+
 		  request.onload = function() {
-		    context.decodeAudioData(request.response, function(buffer) {
+
+        context.decodeAudioData(request.response, function(buffer) {
 		    	console.log('decode recieved');
 		      globalSource.buffer = buffer;
 		      globalSource.connect(context.destination);
@@ -33,57 +36,73 @@
 		}
 
 		socket.on('slaveEvent', function (data) {
+      // if (data.audioEvent == 'play') {
+      //     $("#info")
+      //         .text("playing")
+      //         .css("color", "green");
+      //     globalSource.noteOn(0);
+
+      // }
+
       if (data.audioEvent == 'play') {
           $("#info")
-              .text("playing")
+              .text(data.source)
               .css("color", "green");
+          audioBuffer = null;
+          // context = new webkitAudioContext();
+          globalSource = context.createBufferSource();
+          loadAudio(data.source);
+
+          // play the file
           globalSource.noteOn(0);
 
       }
-      else if (data.audioEvent == 'stop') {
-          $("#info")
-              .text("stopped")
-              .css("color", "red");
-          globalSource.noteOff(0);
 
-      }
-      else if (data.audioEvent == 'reload') {
-          $("#info")
-              .text("ready")
-              .css("color", "black");
-          audioBuffer = null;
-          context = new webkitAudioContext();
-          globalSource = context.createBufferSource();
-          loadAudio(currentFile);
-      }
-      else if (data.audioEvent == 'load') {
-      		$("#info")
-              .text("loading...");
 
-          $("#source")
-              .text(data.source);
+      // else if (data.audioEvent == 'stop') {
+      //     $("#info")
+      //         .text("stopped")
+      //         .css("color", "red");
+      //     globalSource.noteOff(0);
 
-          currentFile = data.source;
-          loadAudio(currentFile);
-      }
+      // }
+      // else if (data.audioEvent == 'reload') {
+      //     $("#info")
+      //         .text("ready")
+      //         .css("color", "black");
+      //     audioBuffer = null;
+      //     context = new webkitAudioContext();
+      //     globalSource = context.createBufferSource();
+      //     loadAudio(currentFile);
+      // }
+      // else if (data.audioEvent == 'load') {
+      // 		$("#info")
+      //         .text("loading...");
+
+      //     $("#source")
+      //         .text(data.source);
+
+      //     currentFile = data.source;
+      //     loadAudio(currentFile);
+      // }
       else if (data.audioEvent == 'error') {
       		$("#info")
               .text("error: " + data.message);
       }
     });
 
-    $(document).ready(function(){
-    	socket.emit('slaveEvent', {
-    		'audioEvent': 'requestSource'
-    	});
-    })
+  //   $(document).ready(function(){
+  //   	socket.emit('slaveEvent', {
+  //   		'audioEvent': 'requestSource'
+  //   	});
+  //   })
 
-    $(window).bind('beforeunload',function(){
-		    socket.emit('slaveEvent', {
-	    		'audioEvent': 'removeSource',
-	    		'source': currentFile
-	    	});
-		});
+  //   $(window).bind('beforeunload',function(){
+		//     socket.emit('slaveEvent', {
+	 //    		'audioEvent': 'removeSource',
+	 //    		'source': currentFile
+	 //    	});
+		// });
 
 	</script>
 	</head>
